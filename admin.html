@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SecureVote</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            background-color: #ffffff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        .sidebar .logo {
+            font-weight: 700;
+            color: #0d6efd;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .sidebar .nav-link {
+            color: #495057;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+        .sidebar .nav-link.active, .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color: #0d6efd;
+        }
+        .sidebar .nav-link i {
+            margin-right: 1rem;
+        }
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-weight: 700;
+        }
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .btn-ai {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h1 class="logo"><i class="bi bi-box-seam-fill"></i> SecureVote</h1>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="bi bi-megaphone-fill"></i> Elections</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="bi bi-people-fill"></i> Voters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="bi bi-bar-chart-line-fill"></i> Results</a>
+            </li>
+            <li class="nav-item mt-auto">
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Dashboard</h1>
+            <span class="text-muted">Welcome, Admin!</span>
+        </header>
+
+        <div class="card">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-4">Create New Election</h5>
+                <form id="createElectionForm">
+                    <div class="mb-3">
+                        <label for="electionTitle" class="form-label">Election Title</label>
+                        <input type="text" class="form-control" id="electionTitle" placeholder="e.g., Student Council President 2025" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="electionDescription" class="form-label">Election Description</label>
+                        <textarea class="form-control" id="electionDescription" rows="4" placeholder="A brief, neutral description of the election." required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn btn-ai" id="generateDescBtn">
+                            <i class="bi bi-stars"></i> ✨ Generate with AI
+                        </button>
+                        <button type="submit" class="btn btn-primary">Create Election</button>
+                    </div>
+                    <div id="ai-status" class="form-text mt-2"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateDescBtn = document.getElementById('generateDescBtn');
+            const electionTitleInput = document.getElementById('electionTitle');
+            const electionDescriptionTextarea = document.getElementById('electionDescription');
+            const aiStatus = document.getElementById('ai-status');
+
+            generateDescBtn.addEventListener('click', async () => {
+                const title = electionTitleInput.value.trim();
+                if (!title) {
+                    alert('Please enter an election title first.');
+                    return;
+                }
+
+                // Show loading state
+                aiStatus.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating description...';
+                generateDescBtn.disabled = true;
+
+                // --- Gemini API Call ---
+                const apiKey = ""; // Leave this as an empty string.
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const prompt = `Generate a neutral, engaging, and concise public description for an election with the title: "${title}". The description should be suitable for a formal voting portal. Do not use markdown.`;
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates[0].content.parts[0].text) {
+                        const generatedText = result.candidates[0].content.parts[0].text;
+                        electionDescriptionTextarea.value = generatedText;
+                        aiStatus.textContent = 'Description generated successfully!';
+                    } else {
+                        throw new Error('Invalid response structure from API.');
+                    }
+
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    aiStatus.textContent = 'Error generating description. Please try again.';
+                    aiStatus.style.color = 'red';
+                } finally {
+                    // Re-enable button
+                    generateDescBtn.disabled = false;
+                }
+            });
+
+            document.getElementById('createElectionForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Election created successfully! (This is a demo)');
+                // Here you would send the form data to your Java backend.
+            });
+        });
+    </script>
+</body>
+</html>
