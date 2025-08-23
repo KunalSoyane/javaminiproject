@@ -10,7 +10,7 @@ public class DatabaseInserter {
         // --- Database Connection Details ---
         String url = "jdbc:mysql://localhost:3306/Smart_vote";
         String user = "root";
-        String password = "0001";
+        String password = "";
 
         // --- 1. The SQL INSERT Statement with Placeholders ---
         // The '?' will be replaced by the values we set later.
@@ -44,4 +44,5 @@ public class DatabaseInserter {
             e.printStackTrace();
         }
     }
+
 }
