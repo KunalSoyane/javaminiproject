@@ -26,7 +26,7 @@ public class VerifyOtpServlet extends HttpServlet {
         // 1. Check if the submitted OTP matches the stored OTP
         if (submittedOtp != null && submittedOtp.equals(storedOtp)) {
             // OTP is correct, proceed to save user to the database
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Smart_vote", "root", "0001");
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Smart_vote", "root", "");
                  PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)")) {
 
                 pstmt.setString(1, email);
@@ -49,4 +49,5 @@ public class VerifyOtpServlet extends HttpServlet {
             response.sendRedirect("verify-otp.jsp?error=1");
         }
     }
+
 }
