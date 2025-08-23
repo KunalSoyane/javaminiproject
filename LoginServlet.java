@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     // Database connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/Smart_vote";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "0001";
+    private static final String DB_PASSWORD = "";
 
     /**
      * Loads the MySQL JDBC driver when the servlet is first initialized.
@@ -84,4 +84,5 @@ public class LoginServlet extends HttpServlet {
             throw new ServletException("Database error during login", e);
         }
     }
+
 }
