@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Online Voting System</title>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --card-background: rgba(255, 255, 255, 0.1);
+            --text-color: #e0e0e0;
+            --input-bg-color: rgba(255, 255, 255, 0.2);
+            --input-border-color: rgba(255, 255, 255, 0.5);
+            --button-hover-bg: linear-gradient(135deg, #8e44ad, #3498db);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: var(--text-color);
+        }
+
+        .login-card {
+            background: var(--card-background);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+        }
+
+        .login-card h3 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px 12px 45px; /* Add padding for the icon */
+            background: var(--input-bg-color);
+            border: 1px solid var(--input-border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-button:hover {
+            background: var(--button-hover-bg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <h3 class="text-center mb-4">Log In</h3>
+    <!-- The onsubmit redirects to user.jsp for now -->
+    <form action="login" method="post">
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" class="input-field" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" class="input-field" placeholder="Password" required>
+        </div>
+        <button class="login-button" type="submit">Login</button>
+    </form>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Check for a registration success message
+    if (urlParams.has('registration') && urlParams.get('registration') === 'success') {
+        const successDiv = document.createElement('div');
+        successDiv.textContent = '✅ Registration successful! Please log in.';
+        successDiv.style.color = '#155724';
+        successDiv.style.backgroundColor = '#d4edda';
+        successDiv.style.border = '1px solid #c3e6cb';
+        successDiv.style.padding = '10px';
+        successDiv.style.borderRadius = '5px';
+        successDiv.style.marginBottom = '15px';
+
+        const form = document.querySelector('form');
+        form.prepend(successDiv);
+    }
+
+    // This part is for showing login errors (you already have this)
+    if (urlParams.has('error')) {
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = 'Invalid email or password. Please try again.';
+        errorDiv.style.color = 'red';
+        // ... rest of your existing error handling script
+        const form = document.querySelector('form');
+        form.prepend(errorDiv);
+    }
+</script>
+</body>
+
+</html>

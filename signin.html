@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Online Voting System</title>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f0f2f5;
+            --card-background: rgba(255, 255, 255, 0.1);
+            --text-color: #e0e0e0;
+            --input-bg-color: rgba(255, 255, 255, 0.2);
+            --input-border-color: rgba(255, 255, 255, 0.5);
+            --button-hover-bg: linear-gradient(135deg, #8e44ad, #3498db);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: var(--text-color);
+        }
+
+        .login-card {
+            background: var(--card-background);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+        }
+
+        .login-card h3 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px 12px 45px; /* Add padding for the icon */
+            background: var(--input-bg-color);
+            border: 1px solid var(--input-border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-button:hover {
+            background: var(--button-hover-bg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .extra-links {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .extra-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .extra-links a:hover {
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <h3>SIGNIN </h3>
+    <form action="/test/Signin" method="post">
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="mobile" name="email" class="input-field" placeholder="Email Address" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="pass" name="password" class="input-field" placeholder="Password" required>
+        </div>
+        <button type="submit" class="login-button">Sign In</button>
+    </form>
+</div>
+</body>
+</html>
