@@ -11,7 +11,7 @@ public class DatabasePrinter {
         // --- 1. Database Connection Details (Best to load from a properties file) ---
         String url = "jdbc:mysql://localhost:3306/Smart_vote";
         String user = "root";
-        String password = "0001";
+        String password = "";
 
         // --- 2. SQL Query ---
         // Using '?' as a placeholder is how you would add parameters
@@ -44,4 +44,5 @@ public class DatabasePrinter {
             e.printStackTrace();
         }
     }
+
 }
