@@ -1,3 +1,4 @@
+package org.example;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 import javax.mail.*;
@@ -7,8 +8,8 @@ import com.sun.mail.util.MailSSLSocketFactory; // New import
 public class EmailService {
 
     public static void sendOtpEmail(String recipientEmail, String otp) {
-        final String senderEmail = "your-email@gmail.com";
-        final String senderPassword = "your-app-password";
+        final String senderEmail = "kunalviveksoyane@gmail.com";
+        final String senderPassword = "nabc vwiw clwj lvvi";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

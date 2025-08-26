@@ -1,3 +1,4 @@
+package org.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ public class DatabaseInserter {
         // --- Database Connection Details ---
         String url = "jdbc:mysql://localhost:3306/Smart_vote";
         String user = "root";
-        String password = "";
+        String password = "0001";
 
         // --- 1. The SQL INSERT Statement with Placeholders ---
         // The '?' will be replaced by the values we set later.
@@ -44,5 +45,4 @@ public class DatabaseInserter {
             e.printStackTrace();
         }
     }
-
 }

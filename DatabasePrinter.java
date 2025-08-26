@@ -1,3 +1,4 @@
+package org.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement; // Changed from Statement
@@ -11,7 +12,7 @@ public class DatabasePrinter {
         // --- 1. Database Connection Details (Best to load from a properties file) ---
         String url = "jdbc:mysql://localhost:3306/Smart_vote";
         String user = "root";
-        String password = "";
+        String password = "0001";
 
         // --- 2. SQL Query ---
         // Using '?' as a placeholder is how you would add parameters
@@ -44,5 +45,4 @@ public class DatabasePrinter {
             e.printStackTrace();
         }
     }
-
 }
